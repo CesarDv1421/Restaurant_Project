@@ -1,0 +1,999 @@
+@font-face {
+  font-family: "Outfit Medium";
+  src: url("../fonts/Outfit/static/Outfit-Medium.ttf") format("truetype"); /* Formatos de fuentes compatibles */
+}
+@font-face {
+  font-family: "Outfit Light";
+  src: url("../fonts/Outfit/static/Outfit-Light.ttf") format("truetype"); /* Formatos de fuentes compatibles */
+}
+@font-face {
+  font-family: "Outfit Regular";
+  src: url("../fonts/Outfit/static/Outfit-Regular.ttf") format("truetype"); /* Formatos de fuentes compatibles */
+}
+@font-face {
+  font-family: "Outfit Bold";
+  src: url("../fonts/Outfit/static/Outfit-Bold.ttf") format("truetype"); /* Formatos de fuentes compatibles */
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Outfit Medium", sans-serif;
+  font-weight: 500;
+  list-style: none;
+  text-decoration: none;
+  border-style: none;
+}
+
+.sectionMenu {
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(../public/img/4907157.jpg);
+}
+
+.footerNav {
+  display: flex;
+  flex-direction: column;
+  border-right: solid 2px rgb(160, 159, 159);
+  background-color: #f8f6f6;
+  transition: all 0.3s ease;
+}
+
+.footerNav:hover {
+  transition: all 0.3s ease;
+}
+
+.porkgrillLogo {
+  width: 50px;
+  margin: 20px 10px 50px;
+  transition: all 0.3s ease;
+}
+
+.footerNav:hover > .porkgrillLogo {
+  margin: 20px auto 50px;
+  transition: all 0.3s ease;
+}
+
+.listOptionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.listOptions > a {
+  display: flex;
+  padding: 3px 10px;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  color: black;
+}
+
+.footerNav:hover .listOptions {
+  justify-content: space-between;
+  padding: -3px -15px;
+  transition: all 0.3s ease;
+}
+
+.footerNav .navTitle {
+  opacity: 0;
+  position: absolute;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.icon {
+  width: 25px;
+  height: 25px;
+}
+
+.footerNav:hover .navTitle {
+  opacity: 1;
+  width: 100%;
+  text-align: center;
+  margin: 0 10px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.imHere {
+  color: rgb(176, 2, 12);
+  background: rgb(19, 15, 64);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 50%,
+    rgba(176, 2, 12, 0.3170518207282913) 100%
+  );
+  border-right: solid 3px rgb(176, 2, 12);
+  border-radius: 2px;
+}
+
+.menuContainer {
+  width: 100%;
+  overflow-y: hidden;
+}
+
+.searchProducts {
+  border-bottom: solid 2px rgb(160, 159, 159);
+  display: flex;
+  align-items: center;
+  background: white;
+  width: 100%;
+  padding: 10px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  border: solid 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+  border-radius: 30px;
+  padding: 10px;
+  margin: auto;
+  width: 80%;
+}
+
+.search-container > input {
+  flex: 1;
+  border: none;
+  font-size: 16px;
+  margin: 0 20px;
+}
+
+.personalData {
+  display: flex;
+  gap: 20px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.personalData > h2 {
+  font-size: 15px;
+}
+
+.circle {
+  width: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.iconCartContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 15px;
+}
+
+.cart-count {
+  position: absolute;
+  color: white;
+  font-size: 10px;
+  top: 15px;
+  right: 2.3%;
+  border: solid 1px red;
+  background-color: red;
+  border-radius: 50px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sliderContainerMenu {
+  margin: 60px auto;
+  padding: 50px;
+  background: linear-gradient(108.4deg, #fd2c38 3.3%, #b0020c 98.4%);
+}
+
+.sliderDataMenu {
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
+  border: solid 2px rgb(140, 3, 3);
+  background: white;
+  margin: 20px;
+  padding: 20px;
+  gap: 20px;
+}
+
+.sliderDataMenu > img {
+  border-radius: 15px;
+  width: 120px;
+}
+
+.categoriesTitle {
+  margin: 30px;
+}
+
+.categoriesContainer {
+  width: 100%;
+}
+
+.sliderMenu {
+  margin: 20px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
+}
+
+.categories {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: solid 2px rgb(176, 2, 12);
+  background: rgba(176, 2, 12, 0.1);
+  border-radius: 20px;
+  padding: 10px;
+  margin: 10px 30px;
+  transition: all 0.3s;
+}
+
+.selectedCategories {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  color: white;
+  flex-direction: column;
+  background: linear-gradient(
+    108.4deg,
+    rgb(253, 44, 56) 3.3%,
+    rgb(176, 2, 12) 98.4%
+  );
+  border: solid 2px rgb(176, 2, 12);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 30px;
+  transition: all 0.3s;
+}
+
+.selectedCategories > h1 {
+  font-size: 14px;
+}
+
+.categories > h1 {
+  font-size: 14px;
+}
+
+.categoriesAllMenu {
+  display: flex;
+  flex-direction: column;
+  border: solid 2px rgb(176, 2, 12);
+  background: rgba(176, 2, 12, 0.1);
+  border-radius: 15px;
+  width: 10px;
+  padding: 20px;
+}
+
+.foodDescriptionContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr 80px 1fr;
+  margin: 20px;
+  gap: 40px;
+  transition: all 0.5s;
+}
+
+.foodDescriptionContainerOrdersActive {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr 80px 1fr;
+  margin: 20px;
+  gap: 40px;
+  transition: all 0.5s;
+}
+
+.foodDescription {
+  display: flex;
+  flex-direction: column;
+  grid-row-end: span 4;
+  height: max-content;
+  border-radius: 15px;
+  background: white;
+  padding: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
+}
+.navbar {
+  background-color: black;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.navbar .links {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: black;
+}
+
+.navbar .links li {
+  flex: 1;
+  text-align: center;
+}
+
+.navbar .logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar .logo-container img {
+  width: 10px;
+}
+
+.navbar a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: white;
+}
+
+.variant {
+  grid-row-end: span 5;
+}
+
+.foodDescriptionInfo {
+  display: flex;
+  border-radius: 15px;
+}
+
+.foodDescriptionInfo > img:hover {
+  transition: all 0.3s;
+  width: 220px;
+  height: 220px;
+}
+.v2 {
+  grid-row-end: span 5;
+}
+
+.foodDescriptionManagementVariants {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 10px 10px 5px 10px;
+}
+
+.foodDescriptionManagement {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+  margin: 10px 10px 5px 10px;
+}
+
+.foodDescriptionManagement > div {
+  flex: 1.5;
+}
+
+.foodDescriptionManagement > h1 {
+  flex: 1;
+}
+
+.quanty {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 50%;
+}
+
+.quantyButton {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  border-radius: 50px;
+  border: none;
+  background: linear-gradient(
+    108.4deg,
+    rgb(253, 44, 56) 3.3%,
+    rgb(176, 2, 12) 98.4%
+  );
+  color: white;
+}
+
+.minus {
+  background: gray;
+}
+
+.submitQuanty {
+  border: solid 1px rgb(176, 2, 12);
+  background: linear-gradient(
+    90deg,
+    rgb(253, 44, 56) 3.3%,
+    rgb(176, 2, 12) 98.4%
+  );
+  color: white;
+  border-radius: 15px;
+  padding: 10px 15px;
+  font-size: 14px;
+}
+
+.submitQuanty:hover {
+  background: linear-gradient(
+    180deg,
+    rgb(253, 44, 56) 3.3%,
+    rgb(176, 2, 12) 98.4%
+  );
+  transition: all 10s;
+}
+
+.titleAvailablePrice {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0px 10px;
+}
+
+.titleAvailablePriceVariant {
+  display: flex;
+  flex-direction: column;
+
+  padding: 0px 10px;
+  justify-content: space-between;
+}
+
+.titleAvailablePriceVariant > p {
+  font-size: 14px;
+  color: rgb(91, 90, 90);
+}
+
+.titleAvailablePrice > p {
+  font-size: 12.5px;
+  color: rgb(91, 90, 90);
+}
+
+.variantsModal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.contentModal {
+  overflow-y: auto;
+  display: flex;
+  gap: 35px;
+  flex-direction: column;
+  padding: 30px;
+  width: 50%;
+  height: 85%;
+  border-radius: 17px;
+  border: solid 3.5px #29ca3c;
+  background-color: white;
+}
+
+.contentModal::-webkit-scrollbar:vertical {
+  width: 10px;
+}
+.cuantas {
+  display: flex;
+  justify-content: space-between;
+}
+.cuantas > button {
+  background-color: white;
+}
+
+.cuantas > button > svg {
+  background-color: white;
+  font-size: 20px;
+  color: #db0d05;
+}
+
+.quantyModal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 25%;
+}
+
+.quantyModal > button {
+  background: linear-gradient(
+    90deg,
+    rgba(31, 212, 53, 1) 1%,
+    rgba(49, 172, 64, 1) 100%
+  );
+  color: white;
+  cursor: pointer;
+  border-radius: 13px;
+  padding: 10px 15px;
+}
+
+.quantyModal > button:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(31, 212, 53, 1) 100%,
+    rgba(49, 172, 64, 1) 1%
+  );
+}
+
+.iWish {
+  display: flex;
+  justify-content: space-between;
+}
+
+.foodVariant {
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.removeIngredients {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 15px;
+}
+
+.quantyOfProduct {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantyFoodVariant {
+  display: flex;
+  align-items: center;
+  margin: 0 25px;
+  gap: 20px;
+}
+
+.ingredientsOptions {
+  background-color: rgb(41, 202, 60, 0.1);
+  border: solid 2px rgb(176, 2, 12);
+
+  color: black;
+  padding: 10px 15px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.ingredientsOptionsNotSelected {
+  background-color: rgb(176, 2, 12);
+  border: solid 2px white;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.notes {
+  display: flex;
+}
+
+.notes > input {
+  margin: 0 20px;
+  border: solid 2px #29ca3c;
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.extras {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.aggOrder {
+  padding: 10px 15px;
+  border-radius: 10px;
+  background: linear-gradient(
+    108.4deg,
+    rgb(253, 44, 56) 3.3%,
+    rgb(176, 2, 12) 98.4%
+  );
+  color: white;
+  cursor: pointer;
+}
+
+.aggOrder:hover {
+  background: linear-gradient(
+    108.4deg,
+    rgb(253, 44, 56) 3.3%,
+    rgb(176, 2, 12) 98.4%
+  );
+}
+
+.viewOrder > * {
+  border-bottom: solid 2px rgb(160, 159, 159);
+  padding: 20px;
+}
+
+.orderContainer {
+  justify-content: space-evenly;
+  gap: 20px;
+}
+
+.order {
+  display: flex;
+  gap: 15px;
+  border: solid 2px #29ca3c;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 10px;
+  background: rgb(176, 2, 12, 0.2);
+}
+
+.dataOrder {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.signOrder {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: solid 2px rgb(41, 202, 60, 0.5);
+  background-color: white;
+  border-radius: 10px;
+  width: 15%;
+  padding: 10px;
+}
+
+.addCart {
+  padding: 10px 15px;
+  border-radius: 10px;
+  background: linear-gradient(
+    108.4deg,
+    rgb(253, 44, 56) 3.3%,
+    rgb(176, 2, 12) 98.4%
+  );
+  color: white;
+  font-size: 17px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.price {
+  font-family: "Outfit Medium", sans-serif;
+}
+
+.dolar {
+  font-family: "Outfit Regular", sans-serif;
+  position: relative;
+  bottom: 2px;
+  color: #29ca3c;
+  font-size: 20px;
+}
+
+.variantQuantyContainer {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.variantQuantyContainer > h1 {
+  font-size: 20px;
+}
+
+.variantQuanty {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.variantPrice {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.variantTypeContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.variantTypeContainer > div {
+  padding: 5px 0;
+}
+
+.variantQuanty .variantType {
+  padding: 8px 10px;
+  cursor: pointer;
+  border: solid 2px rgb(176, 2, 12);
+  background: rgb(176, 2, 12);
+  background: linear-gradient(
+    108.4deg,
+    rgba(253, 44, 56, 0.2) 3.3%,
+    rgba(176, 2, 12, 0.2) 98.4%
+  );
+  color: rgb(35, 35, 35);
+  border-radius: 10px;
+  font-size: 13.5px;
+  transition: all 0.3s;
+}
+
+.selected {
+  padding: 8px 10px;
+  cursor: pointer;
+  border: solid 2px white;
+  background: rgb(31, 212, 53);
+  background: linear-gradient(
+    108.4deg,
+    rgb(253, 44, 56) 3.3%,
+    rgb(176, 2, 12) 98.4%
+  );
+  color: rgb(35, 35, 35);
+  border-radius: 10px;
+  font-size: 13.5px;
+  color: white;
+  transition: all 0.3s;
+}
+
+.cartContainerOculted {
+  width: 0;
+  border-left: solid 2px rgb(160, 159, 159);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.5s;
+}
+
+.cartContainer {
+  background: white;
+  border-left: solid 2px rgb(160, 159, 159);
+  width: 40%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.5s;
+}
+
+.titleCart {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  border-bottom: solid 2px rgb(160, 159, 159);
+}
+
+.titleCart > span {
+  color: rgb(160, 159, 159);
+}
+
+.buttonCloseCart {
+  background-color: gray;
+  cursor: pointer;
+  color: white;
+  padding: 15px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+}
+
+.whereEat {
+  border-bottom: solid 2px rgb(160, 159, 159);
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.whereEat > * {
+  padding: 10px;
+  border-radius: 20px;
+  border: solid 2px rgb(160, 159, 159);
+}
+
+.whereEatSelected {
+  background: linear-gradient(
+    180deg,
+    rgba(31, 212, 53, 1) 1%,
+    rgba(49, 172, 64, 1) 100%
+  );
+  color: white;
+}
+
+.ordersContainer {
+  overflow-y: auto;
+  height: 100%;
+}
+
+.orders {
+  border-bottom: solid 2px rgb(160, 159, 159);
+  display: flex;
+  margin: 0 10px;
+  padding: 20px 0px;
+}
+
+.orders > img {
+  border-radius: 15px;
+}
+
+.orderInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 10px;
+}
+
+.orderInfo > div > h1 {
+  font-size: 20px;
+}
+
+.orderInfo > div > img {
+  border-radius: 15px;
+  border: solid 3px rgb(31, 212, 53);
+}
+
+.variantesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 10px 0;
+}
+
+.variantes {
+  font-size: 13px;
+  border: solid 2px rgb(31, 212, 53);
+  background: rgb(31, 212, 53, 0.1);
+  border-radius: 7px;
+  display: flex;
+  margin: 5px;
+  align-items: center;
+}
+.variantes > span {
+  border: solid 2px rgb(31, 212, 53);
+  background: white;
+  padding: 2px 8px;
+  border-radius: 10px;
+  display: flex;
+  margin: 10px;
+  gap: 10px;
+}
+
+.variantes > span > span {
+  font-size: 14px;
+}
+
+.variantes > span > button {
+  font-size: 12px;
+  cursor: pointer;
+  background-color: white;
+}
+
+.variantExtras {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 0;
+}
+
+.orderQuanty {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.orderQuanty > h2 {
+  font-size: 15px;
+}
+
+.orderModifyQuanty {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttonsModifyQuanty {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttonsModifyQuanty > svg {
+  padding: 5px;
+  cursor: pointer;
+  width: 13px;
+  height: 13px;
+  border-radius: 7px;
+  background: linear-gradient(
+    180deg,
+    rgba(31, 212, 53, 1) 1%,
+    rgba(49, 172, 64, 1) 100%
+  );
+  color: white;
+}
+
+.orderPrice {
+  color: #0f841d;
+}
+
+.totalContainer {
+  border-top: solid 2px rgb(160, 159, 159);
+  padding: 10px 20px;
+}
+
+.items {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  justify-content: space-between;
+}
+
+.total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.total > span {
+  font-size: 20px;
+  color: rgb(10, 161, 27);
+}
+
+.border {
+  border: solid 1px rgb(160, 159, 159);
+  width: 90%;
+  margin: 10px auto;
+}
+
+.CompleteOrderButton > button {
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: white;
+  background: linear-gradient(
+    180deg,
+    rgba(31, 212, 53, 1) 1%,
+    rgba(49, 172, 64, 1) 100%
+  );
+  border: none;
+  padding: 10px 0;
+  border-radius: 20px;
+  transition: all 0.5s;
+}
+
+.CompleteOrderButton:hover > button {
+  font-size: 20px;
+  transition: all 0.5s;
+}
+
+.menuNextArrow,
+.menuLeftArrow {
+  position: absolute;
+  top: 50%;
+  font-size: 25px;
+  color: black;
+  background-color: transparent;
+  transform: translateY(-50%);
+}
+
+.menuLeftArrow {
+  left: -30px;
+}
+
+.menuNextArrow {
+  right: -30px;
+}

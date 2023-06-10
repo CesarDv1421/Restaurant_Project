@@ -1,0 +1,46 @@
+.OrderSideBar {
+  display: flex;
+  height: 100vh;
+}
+
+.orderCartContainer {
+  width: 100%;
+  overflow: hidden;
+}
+
+.orderCart {
+  display: flex;
+  justify-content: space-around;
+}
+
+.sliderOrderListContainer {
+  border: solid 2px red;
+  width: 60%;
+}
+
+.cart-container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.cart-row-Colums {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.cart-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.cart-column {
+  flex: 1;
+  padding: 0 10px;
+}

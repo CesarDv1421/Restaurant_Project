@@ -1,0 +1,67 @@
+.navBarRoll {
+  position: fixed;
+  width: 100%;
+  background: linear-gradient(
+    108.4deg,
+    rgb(253, 44, 56) 3.3%,
+    rgb(176, 2, 12) 98.4%
+  );
+}
+
+.navUlRoll {
+  width: 65%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navUlRoll > li > * {
+  color: white;
+  font-size: 18px;
+}
+
+.containerRollDescription {
+  border-radius: 20px;
+  margin: 0 150px;
+  padding: 30px 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+}
+
+.containerRollDescription > h1 {
+  margin: 30px 0;
+}
+
+.constancia {
+  display: flex;
+  gap: 20px;
+}
+
+.constancia > img {
+  width: 25%;
+  border-radius: 15px;
+}
+
+.textConstancia {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.desafiosRoll {
+  display: flex;
+  gap: 20px;
+}
+
+.desafiosRoll > img {
+  width: 25%;
+  border-radius: 15px;
+}
+
+.desafiosRollText {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
