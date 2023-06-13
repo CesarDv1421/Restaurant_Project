@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import porksGrillLogo from "../../../public/porksGrillLogo.png";
+import porksGrillLogo from "../../public/porksGrillLogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHouse,
@@ -18,21 +18,22 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 //Componentes
-import FoodVariantsDescription from "../../components/FoodVariantsDescription";
-import FoodDescription from "../../components/FoodDescription";
-import Category from "../../components/Category";
-import Options from "../../components/Options";
-import Orders from "../../components/Orders";
-import Destacados from "../../components/Destacados";
-import SideBar from "../../components/SideBar";
+import FoodVariantsDescription from "../components/Menu/FoodVariantsDescription";
+import FoodDescription from "../components/Menu/FoodDescription";
+import Category from "../components/Menu/Category";
+import Options from "../components/Menu/Options";
+import Orders from "../components/Orders";
+import Destacados from "../components/Destacados";
+import SideBar from "../components/SideBar";
 
 //Libraries
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "../menu/menu.css";
+import "../css/menu.css";
+import { useNavigate } from "react-router-dom";
 
-function App() {
+function App({isAdmin}) {
   const [allMenu, setAllMenu] = useState("");
   const [originalMenu, setOriginalMenu] = useState([]);
   const [originalVariantsMenu, setOriginalVariantsMenu] = useState([]);
@@ -45,17 +46,31 @@ function App() {
 
   const [allVariants, setAllVariants] = useState(null);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const showMenu = async () => {
       try {
-        const response = await fetch("http://localhost:3000");
-        const { menu, categories, variantMenu } = await response.json();
+        const response = await fetch("http://localhost:3000", {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        const { menu, categories, variantMenu, err } = await response.json();
 
-        setAllMenu(menu);
-        setCategories(categories);
-        setOriginalMenu(menu); // Asignar el valor inicial
-        setVariantMenu(variantMenu);
-        setOriginalVariantsMenu(variantMenu);
+        if (err) {
+          console.log(err);
+          localStorage.removeItem("token");
+          localStorage.removeItem("userName");
+          navigate("/signin");
+        }
+
+        setAllMenu(menu); // Todo el menu
+        setCategories(categories); //Categorias
+        setOriginalMenu(menu); // Mismo menu, pero para funcionalidades
+        setVariantMenu(variantMenu); //Menu con variantes
+        setOriginalVariantsMenu(variantMenu); //Mismo menu con variantes, pero para funcionalidades
       } catch (err) {
         console.log(err);
       }

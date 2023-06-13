@@ -74,7 +74,11 @@ model clientes {
   id       Int    @id @default(autoincrement())
   name     String @default("") @db.VarChar(50)
   email    String @default("") @db.VarChar(50)
-  password String @default("") @db.VarChar(50)
+  password String @default("") @db.VarChar(250)
+  id_rol   Int?
+  roles    roles? @relation(fields: [id_rol], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK1_rol")
+
+  @@index([id_rol], map: "FK1_rol")
 }
 
 model extras {
@@ -127,4 +131,10 @@ model variantesdelmenu_ingredientes {
 
   @@index([id_variantedelmenu], map: "FK1_variantedelmenu")
   @@index([id_ingrediente], map: "FK2_ingrediente")
+}
+
+model roles {
+  id       Int        @id @default(autoincrement())
+  rol      String?    @db.VarChar(50)
+  clientes clientes[]
 }

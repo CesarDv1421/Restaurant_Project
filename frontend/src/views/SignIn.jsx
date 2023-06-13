@@ -1,26 +1,14 @@
 import React from "react";
-import NavBar from "../../components/NavBar.jsx";
-import "../Signin/Signin.css";
+import NavBar from "../components/NavBar.jsx";
+import "../css/Signin.css";
 
-import FacebookLogin from "react-facebook-login";
-import porksgrill from "../../../public/porksGrillLogo.png";
+import porksgrill from "../../public/porksGrillLogo.png";
 
 import { FaFacebook } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const navigate = useNavigate();
-
-  let responseFacebook;
-
-  try {
-    responseFacebook = (response) => {
-      localStorage.setItem("token", response.accessToken);
-      localStorage.setItem("userName", response.name);
-    };
-  } catch (error) {
-    console.log(error);
-  }
 
   const formSignIn = async (event) => {
     event.preventDefault();
@@ -35,20 +23,20 @@ const SignIn = () => {
         body: JSON.stringify({ email, password }),
       });
 
-      const { token, userName, err } = await response.json();
-
-      localStorage.setItem("token", token);
-      localStorage.setItem("userName", userName);
+      const { token, userName, rol, err } = await response.json();
 
       if (err) {
-        localStorage.removeItem("token");
-        localStorage.removeItem("userName");
         return console.log(err);
       }
+      if (response.status === 201) {
+        localStorage.setItem("token", token);
+        localStorage.setItem("userName", userName);
+        localStorage.setItem("rol", rol)
+        navigate("/menu");
+      }
 
-      navigate("/menu");
     } catch (err) {
-      console.log(err);
+      return console.log(err);
     }
   };
 
@@ -58,15 +46,12 @@ const SignIn = () => {
 
       <div className="signinContainer">
         <div className="welcome">
-
-
-        <h1>¡Bienvenido de vuelta a Porks Grill!</h1>
+          <h1>¡Bienvenido de vuelta a Porks Grill!</h1>
           <p>
             Nos complace verte de nuevo y agradecemos sinceramente que hayas
             elegido regresar a nuestra página. Valoramos tu preferencia y nos
-            enorgullece contar con tu apoyo. En Porks Grill, nuestro
-            objetivo es brindarte una experiencia culinaria excepcional en cada
-            visita.
+            enorgullece contar con tu apoyo. En Porks Grill, nuestro objetivo es
+            brindarte una experiencia culinaria excepcional en cada visita.
           </p>
           <p>
             ¡Gracias por confiar en nosotros una vez más! Estamos aquí para
@@ -80,9 +65,6 @@ const SignIn = () => {
             déjanos consentirte con nuestro sabor único!
           </p>
           <h1>Gracias por volver a preferirnos</h1>
-
-
-          
         </div>
 
         <div>
@@ -91,7 +73,7 @@ const SignIn = () => {
             <h1>Iniciar Sesion</h1>
             <div className="sesionAPIsContainer">
               <div className="sesionAPIs">
-                <FacebookLogin
+                {/* <FacebookLogin
                   appId="815521926257723"
                   autoLoad={false}
                   fields="name,email,picture"
@@ -117,7 +99,7 @@ const SignIn = () => {
                   cssClass="facebook-login-button"
                   icon={<FaFacebook />}
                   textButton=""
-                />
+                /> */}
               </div>
               <span>O use su email</span>
             </div>
@@ -125,7 +107,7 @@ const SignIn = () => {
             <input type="text" name="email" />
             <h2>Contraseña</h2>
             <input type="password" name="password" />
-            <div style={{display:"flex", justifyContent:"space-around"}}>
+            <div style={{ display: "flex", justifyContent: "space-around" }}>
               <Link to="/signup">No tengo cuenta, Resgistrarme</Link>
               <Link>Olvide la Contraseña </Link>
             </div>

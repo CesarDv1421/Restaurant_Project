@@ -4,13 +4,14 @@
 }
 
 .orderCartContainer {
+  padding: 20px;
   width: 100%;
   overflow: hidden;
 }
 
 .orderCart {
   display: flex;
-  justify-content: space-around;
+  border: solid 1px green;
 }
 
 .sliderOrderListContainer {

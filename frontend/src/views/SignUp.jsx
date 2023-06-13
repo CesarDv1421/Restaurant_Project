@@ -1,9 +1,8 @@
 import React from "react";
-import NavBar from "../../components/NavBar.jsx";
-import "./SignUp.css";
+import NavBar from "../components/NavBar.jsx";
+import "../css/SignUp.css";
 
-import FacebookLogin from "react-facebook-login";
-import porksgrill from "../../../public/porksGrillLogo.png";
+import porksgrill from "../../public/porksGrillLogo.png";
 
 import { FaFacebook } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";

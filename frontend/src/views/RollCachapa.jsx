@@ -1,14 +1,14 @@
 import React from "react";
-import "../RollCachapa/RollCachapa.css";
+import "../css/RollCachapa.css";
 
 //imagenes
-import PostRollCachapa from "../../../public/PostRollCachapa.jpg";
-import leftOrnamet from "../../../public/leftOrnament.jpg";
-import rightOrnamet from "../../../public/rightOrnament.jpg";
+import PostRollCachapa from "../../public/PostRollCachapa.jpg";
+import leftOrnamet from "../../public/leftOrnament.jpg";
+import rightOrnamet from "../../public/rightOrnament.jpg";
 
 //Componentes
-import NavBar from "../../components/NavBar";
-import Destacados from "../../components/Destacados";
+import NavBar from "../components/NavBar";
+import Destacados from "../components/Destacados";
 
 //Libraries
 import Slider from "react-slick";

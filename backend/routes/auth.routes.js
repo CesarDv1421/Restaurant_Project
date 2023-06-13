@@ -10,24 +10,25 @@ auth.post("/signin", async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const userExist = await prisma.clientes.findFirst({ where: { email } });
+  const [userExist] = await prisma.$queryRaw`
+    SELECT clientes.name, clientes.email, clientes.password, roles.rol
+    FROM clientes
+    JOIN roles ON clientes.id_rol = roles.id
+    WHERE clientes.email = ${email};
+`;
 
-    if (!userExist)
-      return res.status(404).json({ err: "Usuario no encontrado" });
+  if (!userExist) return res.status(404).json({ err: "Usuario no encontrado" });
 
-    const comparePassword = await encrypt.matchPassword(password, userExist.password);
+  const comparePassword = await encrypt.matchPassword(password, userExist.password);
 
-    if (!comparePassword)
-      return res.status(404).json({ err: "Contraseña incorrecta" });
+  if (!comparePassword) return res.status(404).json({ err: "Contraseña incorrecta" });
 
-    const token = jwt.sign({ id: userExist.id }, process.env.SECRET_JWT, {
-      expiresIn: "30m",
-    });
+  const token = jwt.sign({ id: userExist.id }, process.env.SECRET_JWT, {expiresIn: "30m"});
 
-    return res.status(200).json({ token, userName: userExist.name });
-  } catch (err) {
-    res.status(500).json({ err });
-  }
+  return res.status(201).json({ token, userName: userExist.name, rol : userExist.rol });
+   } catch (err) {
+     res.status(500).json({ err });
+   }
 });
 
 auth.post("/signup", async (req, res) => {
@@ -50,7 +51,7 @@ auth.post("/signup", async (req, res) => {
       expiresIn: "5h",
     });
 
-    res.status(200).json({ token, userName: user.name });
+    res.status(201).json({ token, userName: user.name });
   } catch (err) {
     console.log(err);
   }

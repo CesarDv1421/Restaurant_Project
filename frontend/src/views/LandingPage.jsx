@@ -1,23 +1,23 @@
 import React from "react";
-import "../LandingPage/LandingPage.css";
+import "../css/LandingPage.css";
 
 //Images
-import leftOrnamet from "../../../public/leftOrnament.jpg";
-import rightOrnamet from "../../../public/rightOrnament.jpg";
-import ubicationPorksGrill from "../../../public/ubicationPorksGrill.jpg";
-import PostRollCachapa from "../../../public/PostRollCachapa.jpg";
+import leftOrnamet from "../../public/leftOrnament.jpg";
+import rightOrnamet from "../../public/rightOrnament.jpg";
+import ubicationPorksGrill from "../../public/ubicationPorksGrill.jpg";
+import PostRollCachapa from "../../public/PostRollCachapa.jpg";
 
 //FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 //Componentes
-import Destacados from "../../components/Destacados";
-import NavBar from "../../components/NavBar";
+import Destacados from "../components/Destacados";
+import NavBar from "../components/NavBar";
 
 //Libraries
 import Slider from "react-slick";
-import MapBox from "../../components/MapBox"; //API
+import MapBox from "../components/MapBox"; //API
 import { Link } from "react-router-dom";
 
 const LandingPage = () => {
@@ -40,7 +40,7 @@ const LandingPage = () => {
     slidesToShow: 3,
     arrows: true,
     nextArrow: <CustomNextArrow />, // Componente personalizado para el botón "Next"
-    prevArrow: <CustomPrevArrow />
+    prevArrow: <CustomPrevArrow />,
   };
 
   const setingsAbout = {
@@ -175,7 +175,7 @@ const LandingPage = () => {
         </div>
 
         <div>
-          <div className="titleTrending" style={{margin:"120px 0"}}>
+          <div className="titleTrending" style={{ margin: "120px 0" }}>
             <img src={leftOrnamet} alt="" />
             <h1>Nuestras Sedes</h1>
             <img src={rightOrnamet} alt="" />

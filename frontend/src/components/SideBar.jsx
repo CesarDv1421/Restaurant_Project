@@ -6,10 +6,14 @@ import {
   faClock,
   faFileInvoice,
   faGear,
+  faUnlockKeyhole,
+  faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
-import Options from "./Options";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Options from "./Menu/Options";
+import { Link } from "react-router-dom";
 
-const SideBar = ({ whereIm }) => {
+const SideBar = ({ whereIm, isAdmin }) => {
   return (
     <>
       <img src={porksGrillLogo} className="porkgrillLogo" />
@@ -40,7 +44,21 @@ const SideBar = ({ whereIm }) => {
           icon={faGear}
           imInThisPage={whereIm == "settings" ? true : false}
         />
+
+        {localStorage.getItem("rol") === "admin" && (
+          <Options
+            title="Admin"
+            icon={faUnlockKeyhole}
+            imInThisPage={whereIm == "Admin" ? true : false}
+          />
+        )}
       </div>
+
+      <Options
+        title="Log Out"
+        icon={faRightFromBracket}
+        imInThisPage={whereIm == "logout" ? true : false}
+      />
     </>
   );
 };
