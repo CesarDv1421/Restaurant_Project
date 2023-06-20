@@ -3,7 +3,7 @@ const Destacados = ({ title, price, description, img, className}) => {
   return (
     <div className="containerImgCarousel">
       <div className={className}>
-        <img src={`../public/img/${img}.jpg`} className="imgCarousel" alt="" />
+        <img src={`/img/${img}.jpg`} className="imgCarousel" alt="" />
         <div>
           <h1>{title}</h1>
           <p>{description}</p>

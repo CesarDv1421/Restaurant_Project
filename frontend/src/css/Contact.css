@@ -1,0 +1,9 @@
+.contactContainer {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.chatContactContainer {
+    width: 100%;
+}

@@ -1,18 +1,17 @@
-import { useEffect, useState } from "react";
-import porksGrillLogo from "../../public/porksGrillLogo.png";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+//Context
+import { AuthContext } from "../context/authContext";
+
+//Imagenes / Iconos
+import porksGrillLogo from "/porksGrillLogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faHouse,
-  faListUl,
-  faClock,
-  faFileInvoice,
-  faGear,
   faMagnifyingGlass,
   faUtensils,
   faCartShopping,
-  faL,
   faXmark,
-  faSlash,
   faArrowRight,
   faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
@@ -21,19 +20,19 @@ import {
 import FoodVariantsDescription from "../components/Menu/FoodVariantsDescription";
 import FoodDescription from "../components/Menu/FoodDescription";
 import Category from "../components/Menu/Category";
-import Options from "../components/Menu/Options";
 import Orders from "../components/Orders";
 import Destacados from "../components/Destacados";
 import SideBar from "../components/SideBar";
 
-//Libraries
-import Slider from "react-slick";
+//Librerias
+import Slider from "react-slick"; //Carruseles
 import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import "../css/menu.css";
-import { useNavigate } from "react-router-dom";
+import "slick-carousel/slick/slick-theme.css"; //Estilos necesarios para la libreria
 
-function App({isAdmin}) {
+//CSS
+import "../css/menu.css";
+
+function Menu({ isAdmin }) {
   const [allMenu, setAllMenu] = useState("");
   const [originalMenu, setOriginalMenu] = useState([]);
   const [originalVariantsMenu, setOriginalVariantsMenu] = useState([]);
@@ -46,6 +45,10 @@ function App({isAdmin}) {
 
   const [allVariants, setAllVariants] = useState(null);
 
+  const [totalItemsPrice, setTotalItemsPrice] = useState(null);
+
+  const { logout, userToken } = useContext(AuthContext);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,23 +57,24 @@ function App({isAdmin}) {
         const response = await fetch("http://localhost:3000", {
           headers: {
             "Content-Type": "application/json",
-            authorization: `Bearer ${localStorage.getItem("token")}`,
+            authorization: `Bearer ${userToken.token}`,
           },
         });
         const { menu, categories, variantMenu, err } = await response.json();
 
         if (err) {
+          logout();
           console.log(err);
-          localStorage.removeItem("token");
-          localStorage.removeItem("userName");
           navigate("/signin");
         }
 
-        setAllMenu(menu); // Todo el menu
-        setCategories(categories); //Categorias
-        setOriginalMenu(menu); // Mismo menu, pero para funcionalidades
-        setVariantMenu(variantMenu); //Menu con variantes
-        setOriginalVariantsMenu(variantMenu); //Mismo menu con variantes, pero para funcionalidades
+        if (response.status === 200) {
+          setAllMenu(menu); // Todo el menu
+          setCategories(categories); //Categorias
+          setOriginalMenu(menu); // Mismo menu, pero para funcionalidades
+          setVariantMenu(variantMenu); //Menu con variantes
+          setOriginalVariantsMenu(variantMenu); //Mismo menu con variantes, pero para funcionalidades
+        }
       } catch (err) {
         console.log(err);
       }
@@ -83,79 +87,70 @@ function App({isAdmin}) {
   // }, [allMenu]);
 
   const handleFilterSearch = (input) => {
+    //Si la barra de busqueda no tiene ningun valor, muestra todo el menu
     if (input.length === 0) setStyleCategory(1);
+
+    //Muestra el menu de acuerdo a lo escrito
     const filteredFood = originalMenu.filter((food) =>
       food.name.toLowerCase().includes(input)
     );
+    const filteredVariantFood = originalVariantsMenu.filter((food) =>
+      food.name.toLowerCase().includes(input)
+    );
+    setVariantMenu(filteredVariantFood);
     return setAllMenu(filteredFood);
   };
 
   const handleWhereEat = (id) => {
+    //Estilos de los botones donde comer
     setWhereEat(id);
     setWhereEat((prevSelected) => (prevSelected == id ? id : 0));
   };
 
-  const groupedMenu = (menu) => {
-    //Crea un objeto cuya clave es el nombre del plato y el valor los valores acumulados del mismo nombre del plato
-    const reduce = menu.reduce((acc, curr) => {
-      if (!acc[curr.name]) {
-        //Si no existe el nombre del plato dentro del objeto, lo crea
-        acc[curr.name] = {
-          //El objeto va a ser igual a "Nombre del plato" : { ...resto de la informacion, valores acumulados }
-          ...curr,
-          price: [curr.price],
-          id: [curr.id],
-          variantOrQuanty: [curr.variantOrQuanty],
-        };
-      } else {
-        //Si ya existe el nombre, en el objeto, se agregan los valores name, id y variantOrQuanty dentro de un array
-        acc[curr.name].price.push(curr.price);
-        acc[curr.name].id.push(curr.id);
-        acc[curr.name].variantOrQuanty.push(curr.variantOrQuanty);
-      }
-      return acc;
-    }, {});
-    return reduce;
-  };
-
   useEffect(() => {
-    if (styleCategory === 1) setAllMenu(originalMenu);
-  }, [styleCategory]);
-
-  const showCartClick = () => {
-    setShowCart((prevSelected) => (prevSelected ? false : true));
-  };
-
-  const showCategory = (id) => {
-    if (id === 1) {
-      setStyleCategory(1);
+    //Si el boton seleccinado es Menu, se resetea el menu por defecto, es decir, se muestra todo
+    if (styleCategory === 1) {
       setAllMenu(originalMenu);
       setVariantMenu(originalVariantsMenu);
     }
+  }, [styleCategory]);
 
+  const showCartClick = () => {
+    setShowCart((prevSelected) => (prevSelected ? false : true)); //Desplegar el carrito de compras
+  };
+
+  const showCategory = (id) => {
+    //Cuando se presiona se estiliza el boton seleccionado
+    //Cuando se vuelve a presionar se estiliza el boton Menu
     setStyleCategory((prevSelected) => (prevSelected === id ? 1 : id));
+
+    //Muestra el menu de acuerdo a la categoria seleccionada
     const categorizedMenu = originalMenu.filter(
       (menu) => menu.id_category === id
     );
     const categorizedVariantMenu = originalVariantsMenu.filter(
       (menu) => menu.id_category === id
     );
+
     setAllMenu(categorizedMenu);
     setVariantMenu(categorizedVariantMenu);
   };
 
   const CustomNextArrow = ({ onClick }) => (
+    //Estilos de los botones de carrusel
     <button className="menuNextArrow" onClick={onClick}>
       <FontAwesomeIcon icon={faArrowRight} />
     </button>
   );
 
   const CustomPrevArrow = ({ onClick }) => (
+    //Estilos de los botones de carrusel
     <button className="menuLeftArrow" onClick={onClick}>
       <FontAwesomeIcon icon={faArrowLeft} />
     </button>
   );
 
+  //Configuraciones de los carruseles
   const sliderSettings = {
     infinite: true,
     slidesToShow: 6,
@@ -236,7 +231,7 @@ function App({isAdmin}) {
 
           <div style={{ overflowY: "scroll", height: "90%" }}>
             <h1 style={{ margin: "20px", fontSize: "30px" }}>
-              Bienvenido, {localStorage.getItem("userName")}{" "}
+              Bienvenido, {userToken.userName}
             </h1>
             <h1
               style={{ textAlign: "center", margin: "20px", fontSize: "30px" }}
@@ -245,8 +240,8 @@ function App({isAdmin}) {
             </h1>
 
             <Slider {...sliderTrendingSettings}>
-              <img src="../../public/BannerMenu.jpg" alt="" />
-              <img src="../../public/BannerMenu.jpg" alt="" />
+              <img src="/BannerMenu.jpg" alt="" />
+              <img src="/BannerMenu.jpg" alt="" />
             </Slider>
 
             <div className="sliderContainerMenu">
@@ -327,7 +322,7 @@ function App({isAdmin}) {
               }
             >
               {allMenu &&
-                Object.values(groupedMenu(allMenu)).map(
+                allMenu.map(
                   (
                     {
                       name,
@@ -347,7 +342,7 @@ function App({isAdmin}) {
                       title={name}
                       description={description}
                       id={id}
-                      img={`../public/img/${image}`}
+                      img={`/img/${image}`}
                       isAvailable={true}
                       price={price}
                       menu={allMenu}
@@ -361,7 +356,7 @@ function App({isAdmin}) {
                   )
                 )}
               {variantMenu &&
-                Object.values(groupedMenu(variantMenu)).map(
+                variantMenu.map(
                   (
                     {
                       id,
@@ -382,7 +377,7 @@ function App({isAdmin}) {
                       isAvailable={true}
                       price={price}
                       variantOrQuanty={variantOrQuanty}
-                      img={`../public/img/${image}`}
+                      img={`/img/${image}`}
                       menu={variantMenu}
                       setOrder={setOrder}
                     />
@@ -437,7 +432,7 @@ function App({isAdmin}) {
                       key={index}
                       name={name}
                       price={price}
-                      image={`../public/img/${image}`}
+                      image={`/img/${image}`}
                       id={id}
                       quantyOrder={quanty}
                       variantOrQuanty={variantOrQuanty}
@@ -446,6 +441,7 @@ function App({isAdmin}) {
                       menu={allMenu}
                       allVariants={allVariants}
                       setAllVariants={setAllVariants}
+                      setTotalItemsPrice={setTotalItemsPrice}
                     />
                   );
                 }
@@ -468,19 +464,7 @@ function App({isAdmin}) {
             <div className="total">
               <h2>Total</h2>
 
-              <span>
-                {orders &&
-                  (() => {
-                    const totalPrice = Object.values(orders).reduce(
-                      (accumulator, { price, quanty }) => {
-                        return accumulator + price * quanty;
-                      },
-                      0
-                    );
-
-                    return <span>{totalPrice.toFixed(1)}</span>;
-                  })()}
-              </span>
+              <span>{totalItemsPrice}</span>
             </div>
 
             <div className="CompleteOrderButton">
@@ -493,4 +477,4 @@ function App({isAdmin}) {
   );
 }
 
-export default App;
+export default Menu;

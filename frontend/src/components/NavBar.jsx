@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import porksgrill from "../../public/porksGrillLogo.png";
+import porksgrill from "/porksGrillLogo.png";
 
 const NavBar = ({className, navUl}) => {
   return (

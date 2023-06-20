@@ -1,12 +1,10 @@
-import React from "react";
 import { Doughnut } from "react-chartjs-2";
 
-import "chart.js/auto";
-
+//Componentes
 import SideBar from "../components/SideBar";
-import "../css/Admin.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+//Imagenes / Iconos
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMoneyBill,
   faUser,
@@ -14,7 +12,12 @@ import {
   faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
 
+//CSS
+import "chart.js/auto";
+import "../css/Admin.css";
+
 const Admin = () => {
+
   const data = {
     labels: ["Hamburguesa", "Sandwiches", "Costillas", "Sushi", "Parrilas"],
     datasets: [

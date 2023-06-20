@@ -1,13 +1,10 @@
-import React from "react";
-import "../css/LandingPage.css";
+//Imagenes
+import leftOrnamet from "/leftOrnament.jpg";
+import rightOrnamet from "/rightOrnament.jpg";
+import ubicationPorksGrill from "/ubicationPorksGrill.jpg";
+import PostRollCachapa from "/PostRollCachapa.jpg";
 
-//Images
-import leftOrnamet from "../../public/leftOrnament.jpg";
-import rightOrnamet from "../../public/rightOrnament.jpg";
-import ubicationPorksGrill from "../../public/ubicationPorksGrill.jpg";
-import PostRollCachapa from "../../public/PostRollCachapa.jpg";
-
-//FontAwesome
+//FontAwesome / Iconos
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
@@ -15,10 +12,13 @@ import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Destacados from "../components/Destacados";
 import NavBar from "../components/NavBar";
 
-//Libraries
+//Librerias
 import Slider from "react-slick";
 import MapBox from "../components/MapBox"; //API
 import { Link } from "react-router-dom";
+
+//CSS
+import "../css/LandingPage.css";
 
 const LandingPage = () => {
   const CustomNextArrow = ({ onClick }) => (
@@ -59,7 +59,7 @@ const LandingPage = () => {
         <div className="containerBanner">
           <img
             className="banner"
-            src="../public/Banner-01-01-01.png"
+            src="/Banner-01-01-01.png"
             width="100%"
             height="715px"
             alt=""
@@ -76,7 +76,7 @@ const LandingPage = () => {
             </div>
             <div className="imageFocus">
               <img
-                src="../public/img/ChickenGrainCrispy.jpg"
+                src="/img/ChickenGrainCrispy.jpg"
                 width="300px"
                 alt=""
               />
@@ -89,12 +89,12 @@ const LandingPage = () => {
         <div className="AboutUsContainer">
           <div>
             <Slider {...setingsAbout}>
-              <img src="../../public/PorksGrill2_1.jpg" alt="" />
-              <img src="../../public/PorksGrill2_2.jpg" alt="" />
-              <img src="../../public/PorksGrill2_3.jpg" alt="" />
-              <img src="../../public/PorksGrill2_4.jpg" alt="" />
-              <img src="../../public/PorksGrill2_5.jpg" alt="" />
-              <img src="../../public/PorksGrill2_6.jpg" alt="" />
+              <img src="/PorksGrill2_1.jpg" alt="" />
+              <img src="/PorksGrill2_2.jpg" alt="" />
+              <img src="/PorksGrill2_3.jpg" alt="" />
+              <img src="/PorksGrill2_4.jpg" alt="" />
+              <img src="/PorksGrill2_5.jpg" alt="" />
+              <img src="/PorksGrill2_6.jpg" alt="" />
             </Slider>
           </div>
           <div className="AboutUs">
@@ -277,10 +277,10 @@ const LandingPage = () => {
             <img src={rightOrnamet} alt="" />
           </div>
           <div className="metodosDePago">
-            <img src="../../public/cash.png" width="200px" alt="" />
-            <img src="../../public/BinanceLogo.png" width="200px" alt="" />
-            <img src="../../public/pagoMovilLogo.png" width="200px" alt="" />
-            <img src="../../public/zelleLogo.png" width="200px" alt="" />
+            <img src="/cash.png" width="200px" alt="" />
+            <img src="/BinanceLogo.png" width="200px" alt="" />
+            <img src="/pagoMovilLogo.png" width="200px" alt="" />
+            <img src="/zelleLogo.png" width="200px" alt="" />
           </div>
         </div>
       </main>

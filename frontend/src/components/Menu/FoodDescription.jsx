@@ -126,7 +126,7 @@ const FoodDescription = ({
     event.preventDefault();
 
     if (quanty > 0) {
-      const [idFood] = id;
+      const idFood = id;
       const [clickedFood] = menu.filter((food) => food.id === idFood);
       clickedFood.quanty = quanty;
 

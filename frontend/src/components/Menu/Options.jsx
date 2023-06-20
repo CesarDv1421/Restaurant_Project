@@ -6,7 +6,7 @@ const Options = ({ icon, title, imInThisPage }) => {
   return (
     <>
       <div className={imInThisPage ? "listOptions imHere" : "listOptions"}>
-        <Link to={title === "Log Out" ? "/signin" : `/${title}` }>
+        <Link to={`/${title}`}>
           <FontAwesomeIcon className="icon" icon={icon} />
           <h2 className="navTitle">{title}</h2>
         </Link>

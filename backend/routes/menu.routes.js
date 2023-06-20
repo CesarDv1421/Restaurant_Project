@@ -54,14 +54,32 @@ app.get("/", async (req, res) => {
       CROSS JOIN (SELECT @row_number := 0) AS dummy;
     `;
 
-    res.status(201).json({ menu, categories, variantMenu });
+    //Crea un objeto cuya clave es el nombre del plato y el valor los valores acumulados del mismo nombre del plato
+    const reduceMenu = (allMenu) => {
+      return allMenu.reduce((acc, curr) => {
+        if (!acc[curr.name]) {
+          //Si no existe el nombre del plato dentro del objeto, lo crea
+          acc[curr.name] = {
+            //El objeto va a ser igual a "Nombre del plato" : { ...resto de la informacion, valores acumulados o todas las variantes }
+            ...curr,
+            price: [curr.price],
+            id: [curr.id],
+            variantOrQuanty: [curr.variantOrQuanty],
+          };
+        } else {
+          //Si ya existe el nombre, en el objeto, se agregan los valores name, id y variantOrQuanty dentro de un array
+          acc[curr.name].price.push(curr.price);
+          acc[curr.name].id.push(curr.id);
+          acc[curr.name].variantOrQuanty.push(curr.variantOrQuanty);
+        }
+        return acc;
+      }, {});
+    };
+
+    res.status(200).json({ menu : Object.values(reduceMenu(menu)), categories, variantMenu : Object.values(reduceMenu(variantMenu)) });
   } catch (err) {
     res.status(500).json({ err });
   }
-});
-
-app.post("/", async (req, res) => {
-  res.json({ categories });
 });
 
 export default app;

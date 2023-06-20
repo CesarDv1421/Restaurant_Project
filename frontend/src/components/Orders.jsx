@@ -13,6 +13,7 @@ const Orders = ({
   id,
   allVariants,
   setAllVariants,
+  setTotalItemsPrice,
 }) => {
   const [totalQuantyOrders, setTotalQuantyOrders] = useState({});
 
@@ -28,6 +29,8 @@ const Orders = ({
       }, {});
 
       setTotalQuantyOrders(sumQuantyOrders);
+      setTotalItemsPrice(price * totalQuantyOrders[id]);
+      console.log(price * totalQuantyOrders[id]);
     }
   }, [allVariants]);
 
@@ -42,7 +45,7 @@ const Orders = ({
 
         updatedVariants.forEach((variant) => {
           if (
-            variant.idOrder.includes(id) &&
+            variant.idOrder.includes(...id) &&
             variant.variantes === currentVariantes &&
             variant.additional === currentAdditional
           ) {
@@ -65,7 +68,7 @@ const Orders = ({
 
       updatedVariants.forEach((variant) => {
         if (
-          variant.idOrder.includes(id) &&
+          variant.idOrder.includes(...id) &&
           variant.variantes === currentVariantes &&
           variant.additional === currentAdditional
         ) {
@@ -97,7 +100,7 @@ const Orders = ({
   let idOrder;
 
   if (allVariants) {
-    idOrder = allVariants.filter(({ idOrder }) => idOrder.includes(id));
+    idOrder = allVariants.filter(({ idOrder }) => idOrder.includes(...id));
   }
 
   return (
@@ -107,14 +110,14 @@ const Orders = ({
           <h1>{name}</h1>
           {variantOrQuanty && (
             <span className="orderQuanty">
-              {variantOrQuanty} x{quantyOrder}
+              {variantOrQuanty} {allVariants ? null : `x${quantyOrder}`}
             </span>
           )}
         </div>
         <div className="variantesContainer">
           {allVariants &&
             allVariants
-              .filter(({ idOrder }) => idOrder.includes(id))
+              .filter(({ idOrder }) => idOrder.includes(...id))
               .map(({ quantyOrder, variantes, additional, idOrder }, index) => {
                 return (
                   <div className="variantes" key={index}>
@@ -138,26 +141,24 @@ const Orders = ({
                       </button>
                     </span>
                     {(additional || variantes) && ( //Si existen variantes o adicionales, los renderizas
-                        <div className="variantExtras">
-                          {variantes.length != 0 && ( //Parece redundante pero esto lo que hace es renderizar si existen variantes o adicionales, en caso de que uno no exista, simplemente no lo agrega
-                            <div>
-                              {variantes == "Con Todo"
-                                ? "Con Todo"
-                                : `- Sin ${variantes} `}
-                            </div>
-                          )}
+                      <div className="variantExtras">
+                        {variantes.length != 0 && ( //Parece redundante pero esto lo que hace es renderizar si existen variantes o adicionales, en caso de que uno no exista, simplemente no lo agrega
+                          <div>
+                            {variantes == "Con Todo"
+                              ? "Con Todo"
+                              : `- Sin ${variantes} `}
+                          </div>
+                        )}
 
-                          {additional.length != 0 && (
-                            <>
-                              <div>
-                                {additional == "Sin Agregado"
-                                  ? null
-                                  : `- Extra: ${additional}`}
-                              </div>
-                            </>
-                          )}
-                        </div>
-                      )}
+                        {additional.length != 0 && (
+                          <div>
+                            {additional == "Sin Agregado"
+                              ? "Sin Agregado"
+                              : `- Extra: ${additional} `}
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 );
               })}
@@ -166,7 +167,7 @@ const Orders = ({
         <div className="orderModifyQuanty">
           {allVariants && idOrder.length > 0 ? (
             <div className="buttonsModifyQuanty">
-              <span>{totalQuantyOrders[id]}</span>
+              <span>Cantidad: {totalQuantyOrders[id]}</span>
             </div>
           ) : (
             <div className="buttonsModifyQuanty">
@@ -176,7 +177,7 @@ const Orders = ({
             </div>
           )}
           <span className="orderPrice">
-            $
+            Total: $
             {allVariants && idOrder.length > 0
               ? (price * totalQuantyOrders[id]).toFixed(1)
               : (price * quantyOrder).toFixed(1)}

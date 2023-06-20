@@ -1,5 +1,5 @@
-import React from "react";
-import porksGrillLogo from "../../public/porksGrillLogo.png";
+import React, { useContext } from "react";
+import porksGrillLogo from "/porksGrillLogo.png";
 import {
   faHouse,
   faListUl,
@@ -12,8 +12,11 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Options from "./Menu/Options";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/authContext";
 
 const SideBar = ({ whereIm, isAdmin }) => {
+  const { logout, userToken } = useContext(AuthContext);
+
   return (
     <>
       <img src={porksGrillLogo} className="porkgrillLogo" />
@@ -45,7 +48,7 @@ const SideBar = ({ whereIm, isAdmin }) => {
           imInThisPage={whereIm == "settings" ? true : false}
         />
 
-        {localStorage.getItem("rol") === "admin" && (
+        { userToken.rol == "admin" && (
           <Options
             title="Admin"
             icon={faUnlockKeyhole}
@@ -54,11 +57,12 @@ const SideBar = ({ whereIm, isAdmin }) => {
         )}
       </div>
 
-      <Options
-        title="Log Out"
-        icon={faRightFromBracket}
-        imInThisPage={whereIm == "logout" ? true : false}
-      />
+      <div className="listOptions">
+        <Link to="/signin" onClick={() => logout()}>
+          <FontAwesomeIcon className="icon" icon={faRightFromBracket} />
+          <h2 className="navTitle">Log Out</h2>
+        </Link>
+      </div>
     </>
   );
 };

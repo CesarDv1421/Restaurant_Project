@@ -1,20 +1,38 @@
-import React from "react";
-import NavBar from "../components/NavBar.jsx";
-import "../css/Signin.css";
-
-import porksgrill from "../../public/porksGrillLogo.png";
-
-import { FaFacebook } from "react-icons/fa";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+//imagenes
+import porksgrill from "/porksGrillLogo.png";
+
+//Componentes
+import { AuthContext } from "../context/authContext";
+import SnackbarMUI from "../components/SnackbarMUI.jsx";
+
+//CSS
+import "../css/Signin.css";
+
 const SignIn = () => {
+  const [errMessage, setErrMessage] = useState("");
+
+  const { login, logout, userToken } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userToken) return navigate("/menu");
+  }, [userToken]);
 
   const formSignIn = async (event) => {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const { email, password } = Object.fromEntries(formData);
+
+    if (!email && !password)
+      return setErrMessage("Ingrese un email y contraseña");
+
+    if (!email) return setErrMessage("Ingrese un email");
+
+    if (!password) return setErrMessage("Ingrese una contraseña");
 
     try {
       const response = await fetch("http://localhost:3000/auth/signin", {
@@ -26,15 +44,14 @@ const SignIn = () => {
       const { token, userName, rol, err } = await response.json();
 
       if (err) {
+        logout();
+        setErrMessage(err);
         return console.log(err);
       }
       if (response.status === 201) {
-        localStorage.setItem("token", token);
-        localStorage.setItem("userName", userName);
-        localStorage.setItem("rol", rol)
+        login({ token, userName, rol });
         navigate("/menu");
       }
-
     } catch (err) {
       return console.log(err);
     }
@@ -45,7 +62,7 @@ const SignIn = () => {
       {/* <NavBar className="navContainer" navUl="navUl" /> */}
 
       <div className="signinContainer">
-        <div className="welcome">
+        {/* <div className="welcome">
           <h1>¡Bienvenido de vuelta a Porks Grill!</h1>
           <p>
             Nos complace verte de nuevo y agradecemos sinceramente que hayas
@@ -65,52 +82,28 @@ const SignIn = () => {
             déjanos consentirte con nuestro sabor único!
           </p>
           <h1>Gracias por volver a preferirnos</h1>
-        </div>
+        </div> */}
 
         <div>
           <form className="signin" onSubmit={formSignIn}>
             <img src={porksgrill} alt="" />
             <h1>Iniciar Sesion</h1>
-            <div className="sesionAPIsContainer">
-              <div className="sesionAPIs">
-                {/* <FacebookLogin
-                  appId="815521926257723"
-                  autoLoad={false}
-                  fields="name,email,picture"
-                  callback={responseFacebook}
-                  cssClass="facebook-login-button"
-                  icon={<FaFacebook />}
-                  textButton=""
-                />
-                <FacebookLogin
-                  appId="815521926257723"
-                  autoLoad={false}
-                  fields="name,email,picture"
-                  callback={responseFacebook}
-                  cssClass="facebook-login-button"
-                  icon={<FaFacebook />}
-                  textButton=""
-                />
-                <FacebookLogin
-                  appId="815521926257723"
-                  autoLoad={false}
-                  fields="name,email,picture"
-                  callback={responseFacebook}
-                  cssClass="facebook-login-button"
-                  icon={<FaFacebook />}
-                  textButton=""
-                /> */}
-              </div>
-              <span>O use su email</span>
-            </div>
             <h2>Email</h2>
-            <input type="text" name="email" />
+            <input type="email" name="email" />
             <h2>Contraseña</h2>
             <input type="password" name="password" />
             <div style={{ display: "flex", justifyContent: "space-around" }}>
               <Link to="/signup">No tengo cuenta, Resgistrarme</Link>
               <Link>Olvide la Contraseña </Link>
             </div>
+
+            {errMessage && (
+              <SnackbarMUI
+                errMessage={errMessage}
+                setErrMessage={setErrMessage}
+              />
+            )}
+
             <input type="submit" value="Iniciar Sesion" />
           </form>
         </div>

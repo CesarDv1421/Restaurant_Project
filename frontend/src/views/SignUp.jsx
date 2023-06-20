@@ -1,25 +1,51 @@
-import React from "react";
-import NavBar from "../components/NavBar.jsx";
-import "../css/SignUp.css";
-
-import porksgrill from "../../public/porksGrillLogo.png";
-
-import { FaFacebook } from "react-icons/fa";
+import { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+//Context
+import { AuthContext } from "../context/authContext.jsx";
+
+//Imagenes
+import porksgrill from "/porksGrillLogo.png";
+
+//Componentes
+import SnackbarMUI from "../components/SnackbarMUI.jsx";
+
+//CSS
+import "../css/SignUp.css";
+
 const SignUp = () => {
+  const [errMessage, setErrMessage] = useState(false);
   const navigate = useNavigate();
 
-  const responseFacebook = (response) => {
-    localStorage.setItem("token", response.accessToken);
-    localStorage.setItem("userName", response.name);
-  };
+  //Context
+  const { login, logout, userToken } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (userToken) return navigate("/menu");
+  }, [userToken]);
 
   const formSignUp = async (event) => {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const { name, email, password } = Object.fromEntries(formData);
+
+    if (!name && !email && !password)
+      return setErrMessage("Ingrese su nombre, email y contraseña");
+
+    if (!email && !password)
+      return setErrMessage("Ingrese un email y contraseña");
+
+    if (!name && !password)
+      return setErrMessage("Ingrese su nombre y contraseña");
+
+    if (!name && !email) return setErrMessage("Ingrese su nombre y un email");
+
+    if (!email) return setErrMessage("Ingrese un email");
+
+    if (!password) return setErrMessage("Ingrese una contraseña");
+
+    if (!name) return setErrMessage("El nombre es requerido");
 
     try {
       const response = await fetch("http://localhost:3000/auth/signup", {
@@ -28,19 +54,21 @@ const SignUp = () => {
         body: JSON.stringify({ name, email, password }),
       });
 
-      const { token, userName, err } = await response.json();
-
-      localStorage.setItem("token", token);
-      localStorage.setItem("userName", userName);
+      const { token, userName, rol, err } = await response.json();
 
       if (err) {
-        localStorage.removeItem("token");
-        localStorage.removeItem("userName");
+        logout();
+        setErrMessage(err);
         return console.log(err);
+      }
+      if (response.status === 201) {
+        login({ token, userName, rol });
+        navigate("/menu");
       }
 
       navigate("/menu");
     } catch (err) {
+      setErrMessage(err);
       console.log(err);
     }
   };
@@ -54,53 +82,24 @@ const SignUp = () => {
           <form className="signin" onSubmit={formSignUp}>
             <img src={porksgrill} alt="" />
             <h1>Registrate</h1>
-            <div className="sesionAPIsContainer">
-              <div className="sesionAPIs">
-                <FacebookLogin
-                  appId="815521926257723"
-                  autoLoad={false}
-                  fields="name,email,picture"
-                  callback={responseFacebook}
-                  cssClass="facebook-login-button"
-                  icon={<FaFacebook />}
-                  textButton=""
-                />
-                <FacebookLogin
-                  appId="815521926257723"
-                  autoLoad={false}
-                  fields="name,email,picture"
-                  callback={responseFacebook}
-                  cssClass="facebook-login-button"
-                  icon={<FaFacebook />}
-                  textButton=""
-                />
-                <FacebookLogin
-                  appId="815521926257723"
-                  autoLoad={false}
-                  fields="name,email,picture"
-                  callback={responseFacebook}
-                  cssClass="facebook-login-button"
-                  icon={<FaFacebook />}
-                  textButton=""
-                />
-              </div>
-              <span>O use su email</span>
-            </div>
             <h2>Nombre</h2>
             <input type="text" name="name" />
             <h2>Email</h2>
-            <input type="text" name="email" />
+            <input type="email" name="email" />
             <h2>Contraseña</h2>
             <input type="password" name="password" />
             <span style={{ textAlign: "center" }}>
-              {" "}
-              Ya esta registrado?<Link to="/signin">Inicia Sesion</Link>
+              Ya esta registrado? <Link to="/signin">Inicia Sesion</Link>
             </span>
             <input type="submit" value="Registrarse" />
           </form>
         </div>
 
-        <div className="welcome">
+        {errMessage && (
+          <SnackbarMUI errMessage={errMessage} setErrMessage={setErrMessage} />
+        )}
+
+        {/* <div className="welcome">
           <h1>¡Bienvenido/a a Porks Grill!</h1>
           <p>
             Nos complace recibirte en nuestro restaurante, donde la pasión por
@@ -132,7 +131,7 @@ const SignUp = () => {
             tentar por nuestros irresistibles postres caseros.
           </p>
           <h1>¡Buen provecho!</h1>
-        </div>
+        </div> */}
       </div>
     </div>
   );

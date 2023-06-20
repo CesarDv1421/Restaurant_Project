@@ -1,9 +1,15 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
+
+//Componentes
 import SideBar from "../components/SideBar";
-import "../css/OrderList.css";
+
+//Librerias
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+//CSS
+import "../css/OrderList.css";
 
 const OrderList = () => {
   const [currentSlide, setCurrentSlide] = useState(0);

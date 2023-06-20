@@ -1,19 +1,19 @@
-import React from "react";
-import "../css/RollCachapa.css";
-
 //imagenes
-import PostRollCachapa from "../../public/PostRollCachapa.jpg";
-import leftOrnamet from "../../public/leftOrnament.jpg";
-import rightOrnamet from "../../public/rightOrnament.jpg";
+import PostRollCachapa from "/PostRollCachapa.jpg";
+import leftOrnamet from "/leftOrnament.jpg";
+import rightOrnamet from "/rightOrnament.jpg";
 
 //Componentes
 import NavBar from "../components/NavBar";
 import Destacados from "../components/Destacados";
 
-//Libraries
+//Librerias
 import Slider from "react-slick";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+
+//CSS
+import "../css/RollCachapa.css";
 
 const RollCachapa = () => {
   const CustomNextArrow = ({ onClick }) => (
@@ -108,7 +108,7 @@ const RollCachapa = () => {
                 comensales.
               </p>
             </div>
-            <img src="../../public/img/RollTradicional.jpg" alt="" />
+            <img src="/img/RollTradicional.jpg" alt="" />
           </div>
 
           <h2>Únete a nosotros y descubre el Roll de Cachapa</h2>
